@@ -39,9 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #my own app
-    'blog',
+    'blog',#learning app
     'repo_manage',
     'upload',
+    'search',
+    'share',
 ]
 
 MIDDLEWARE_CLASSES = [

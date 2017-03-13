@@ -13,13 +13,9 @@
 </form>
 -->
 
-<form enctype="multipart/form-data" action="/uploadFile/" method="post">
-    {% for field in form %}
-        <div class="fieldWrapper">
-        {{ field.label_tag }}:{{ field }}
-        {{ field.errors }}
-        </div>
-    {% endfor %}
+<!-- delete action="/uploadFile/"-->
+<form enctype="multipart/form-data"  method="post">
+    {{ rf.as_p }}
 
     <input type="submit" value="upload"/>
 </form>

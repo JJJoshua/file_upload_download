@@ -26,7 +26,7 @@ class IndexView(ListView):
             #article.body = markdown2.markdown(article.body, )
             # 将markdown标记的文本转为html文本
         #return article_list
-        return render(request, 'home.html', {'string': string})
+        return render(request, 'show_person.html', {'string': string})
 
     def get_context_data(self, **kwargs):
         # 增加额外的数据，这里返回一个文章分类，以字典的形式
@@ -37,4 +37,4 @@ def home(request):
     from blog.models import Person
     dict = Person.objects.filter(name = 'josh')
  #   dict = {'name': u'david', 'age': 20}
-    return render(request, 'home.html', {'person': dict})
+    return render(request, 'show_person.html', {'person': dict})

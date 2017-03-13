@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>list images</title>
+</head>
+<body>
+<p>私有实验信息</p>
+{% for i in ilist.0 %}
+    name:{{ i.exp_name }}, owner:{{ i.exp_owner }}<br/>
+{% endfor %}
+
+<p>公有实验信息</p>
+{% for i in ilist.1 %}
+    id:{{ i.exp_name }}, owner:{{ i.exp_owner }}<br/>
+{% endfor %}
+</body>
+</html>

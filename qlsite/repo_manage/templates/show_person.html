@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>欢迎光临</title>
+</head>
+<body>
+欢迎光临自强学堂<br/>
+{% for u in user %}
+    {{ u.username }},{{ u.email }}
+{% endfor %}
+
+</body>
+</html>
+

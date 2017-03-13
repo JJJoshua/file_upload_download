@@ -15,16 +15,27 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from blog.views import *
+from upload.views import *
+from repo_manage.views import *
+from search.views import *
+from share.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
 #the way to call def
-    url(r'^blog/', 'blog.views.home', name='home'),
+    url(r'^blog/$', home, name='home'),
 
-    url(r'^upload/', 'upload.views.upload_file', name='upload'),
-    url(r'^uploadFile/', 'upload.views.upload_file', name='upload_file'),
+    url(r'^upload_file/$', upload_file, name='upload_file'),
+    url(r'^download_file/$', download_file, name='download_file'),
 
-    url(r'^download/', 'upload.views.download_file', name='download'),
+    url(r'^show_person/$', show_person, name='show_person'),
+    url(r'^list_image/$', list_image, name='list_image'),
+    url(r'^list_experiment/$', list_experiment, name='list_experiment'),
 
+    url(r'^search/$', search, name='search'),
+
+    url(r'^share_image/$', share_image, name='share_image'),
+    url(r'^share_experiment/$', share_experiment, name='share_experiment'),
 ]

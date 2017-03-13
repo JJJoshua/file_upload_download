@@ -67,3 +67,38 @@ class VMImage(models.Model):
     class Meta:
         ordering = ['-created_at']
 
+
+# #The db used to store exp template
+class Experiment(models.Model):
+    #basic info
+    # exp_id = models.CharField(max_length = 10)
+    exp_name = models.CharField(max_length = 150)
+    exp_description = models.TextField(blank = True)
+    exp_createtime = models.DateTimeField(auto_now_add = True,editable = True)
+    exp_updatetime = models.DateTimeField(auto_now = True,blank = True)#the default value is equal to created_time
+    exp_owner = models.ForeignKey(User)
+    #exp template
+    #image_name1,image_name2,....all images contained in the exp
+
+    #暂时不考虑多对多的问题
+    #exp_images = models.ManyToManyField(VMImage)#???
+
+    exp_image_count = models.IntegerField(null=True)
+
+    # 暂时不考虑多对多的问题
+    #exp_network = models.ManyToManyField(Network)
+
+    exp_guide = models.TextField(null=True,blank = True)
+    exp_result = models.CharField(max_length = 150,null=True,blank = True)
+    exp_reportDIR =  models.CharField(max_length = 150,null=True,blank = True)
+    is_shared  = models.CharField(max_length=10,null=True,default='False')
+    shared_time = models.DateTimeField(auto_now_add = True,null=True,editable=True)
+
+
+    def __unicode__(self):
+        return u'id=%s,name=%s,creater=%s,is_shared=%s' % (self.id,self.exp_name,self.exp_owner,self.is_shared)
+
+    class Meta:
+        ordering = ['-exp_createtime']
+
+

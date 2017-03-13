@@ -2,7 +2,7 @@
 import os
 
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 
 # Create your views here.
@@ -20,9 +20,9 @@ def upload_file(request):
         destination.close()
 
         # 取出表格中内容
-        form = upload_form(request.POST)
-        file_name = form.data['file_name']
-        file_desc = form.data['file_desc']
+        rf = upload_form(request.POST)
+        file_name = rf.data['file_name']
+        file_desc = rf.data['file_desc']
 
         #将表格中内容存入数据库
         from models import file
@@ -36,8 +36,8 @@ def upload_file(request):
         response = "congrats. your file \""+ myFile.name + "\" has been uploaded."
         return HttpResponse(response)
     else:
-        form = upload_form()
-    return render(request, 'upload.html',{'form':form})
+        rf = upload_form()
+    return render(request, 'upload.html', {'rf':rf})
 
 
 
