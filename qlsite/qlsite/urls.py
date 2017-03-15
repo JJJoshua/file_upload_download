@@ -20,6 +20,8 @@ from upload.views import *
 from repo_manage.views import *
 from search.views import *
 from share.views import *
+from delete.views import *
+from api_test.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -38,4 +40,8 @@ urlpatterns = [
 
     url(r'^share_image/$', share_image, name='share_image'),
     url(r'^share_experiment/$', share_experiment, name='share_experiment'),
+
+    url(r'^delete_experiment/$', delete_experiment, name='delete_experiment'),
+
+    url(r'^list_openstack_images/$', list_openstack_images, name='list_openstack_images'),
 ]

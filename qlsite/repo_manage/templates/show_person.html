@@ -4,9 +4,10 @@
     <title>欢迎光临</title>
 </head>
 <body>
-欢迎光临自强学堂<br/>
+<br/>
 {% for u in user %}
-    {{ u.username }},{{ u.email }}
+    用户名: {{ u.username }}</br>
+    邮箱: {{ u.email }}
 {% endfor %}
 
 </body>

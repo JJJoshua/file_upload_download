@@ -10,7 +10,8 @@ def search(request):
         rf = search_form(request.POST)
 
         #当前用户名
-        username = 'josh'
+        #username = 'josh'
+        user_id = 2
 
         if rf.is_valid():
             id = rf.cleaned_data['id']
@@ -18,20 +19,20 @@ def search(request):
             owner = rf.cleaned_data['owner']
 
         #处理Image部分
-            #根据当前用户信息得到的其可见的Image
-            private_ilist = list(VMImage.objects.filter(owner__username=username))
+            # 根据当前用户信息得到的其可见的Image
+            private_ilist = list(VMImage.objects.filter(owner_id=user_id))
             shared_ilist = list(VMImage.objects.filter(is_shared='True'))
             #可见的Image为公有和私有的并集
             own_ilist = list(set(private_ilist) | set(shared_ilist))
 
 
-            #id选项非空，则筛选出符合要求的Image，取交集
+            # id选项非空，则筛选出符合要求的Image，取交集
             if id:
                 id_ilist = list(VMImage.objects.filter(image_id=id))
                 own_ilist = list(set(own_ilist) & set(id_ilist))
 
 
-            #name选项非空，则筛选出符合要求的Image，取交集
+            # name选项非空，则筛选出符合要求的Image，取交集
             if name:
                 name_ilist = list(VMImage.objects.filter(name=name))
                 own_ilist = list(set(own_ilist) & set(name_ilist))
@@ -47,7 +48,7 @@ def search(request):
 
         #处理Experiment部分
             # 根据当前用户信息得到的其可见的Experiment
-            private_elist = list(Experiment.objects.filter(exp_owner__username=username))
+            private_elist = list(Experiment.objects.filter(exp_owner_id=user_id))
             shared_elist = list(Experiment.objects.filter(is_shared='True'))
             # 可见的Image为公有和私有的并集
             own_elist = list(set(private_elist) | set(shared_elist))

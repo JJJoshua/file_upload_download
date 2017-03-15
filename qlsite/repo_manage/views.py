@@ -5,8 +5,12 @@ from django.shortcuts import render
 #展示某用户的信息
 def show_person(request):
     from models import User
-    name = 'josh'
-    dict = User.objects.filter(username=name)
+
+    #当前用户信息
+    #name = 'josh'
+    user_id = 2
+
+    dict = User.objects.filter(id=user_id)
     return render(request, 'show_person.html', {'user': dict})
 
 
@@ -14,11 +18,13 @@ def show_person(request):
 def list_image(request):
     from models import User, VMImage
 
-    name = 'david'
+    #当前用户信息
+    #name = 'david'
+    user_id = 1
 
     #展示私有镜像信息
     #owner = User.objects.get(username=name)
-    dict1 = VMImage.objects.filter(owner__username=name) #利用了外键的特性
+    dict1 = VMImage.objects.filter(owner_id=user_id) #利用了外键的特性
 
 
     #展示公有镜像信息
@@ -32,10 +38,12 @@ def list_image(request):
 def list_experiment(request):
     from models import Experiment
 
-    name = 'josh'
+    #当前用户信息
+    #name = 'josh'
+    user_id = 2
 
     #展示私有实验信息
-    dict1 = Experiment.objects.filter(exp_owner__username=name)
+    dict1 = Experiment.objects.filter(exp_owner_id=user_id)
 
 
     #展示公有实验信息
