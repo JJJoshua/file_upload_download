@@ -17,3 +17,39 @@ def delete_experiment(request):
         return HttpResponse('The experiment ' + str(exp_id) + ' has been deleted')
     else:
         return HttpResponse('delete error')
+
+
+def delete_openstack_image(request):
+    from repo_manage.models import VMImage
+    from api_test import createconn, image_resource_operation
+
+    # --------default argus used for connect to OpenStack Cloud----
+    auth_username = 'admin'
+    auth_password = 'os62511279'
+    auth_url = 'http://202.112.113.220:5000/v2.0/'
+    project_name = 'admin'
+    region_name = 'RegionOne'
+
+    system_admin_email = 'machenyi2011@163.com'
+
+    #当前用户信息，josh的id是2
+    user_id = 2
+
+    #当前选择的镜像，name为qinli_cirros_test
+    image_name = 'qinli_cirros_test'
+
+    img = VMImage.objects.get(name=image_name)
+
+    if img.owner_id == user_id:
+        image_id = img.image_id
+        conn = createconn.create_connection(auth_url, region_name, project_name, auth_username, auth_password)
+
+        #删除OpenStack中的镜像
+        image_resource_operation.delete_image(conn, image_id)
+
+        #删除数据库中记录
+        img.delete()
+
+        return HttpResponse('the image ' + image_name+ ' has been deleted')
+    else:
+        return HttpResponse('you can\'t delete the image')

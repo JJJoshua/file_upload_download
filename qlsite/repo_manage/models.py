@@ -37,7 +37,7 @@ class Student(models.Model):
 
 #The db stores all VMimages in repo,both public repo and private repo(data from openstack)
 class VMImage(models.Model):
-    image_id = models.CharField(max_length = 36,null=True,blank=True)
+    image_id = models.CharField(max_length = 100,null=True,blank=True)
     name = models.CharField(max_length = 255)
     owner = models.ForeignKey(User)
     own_project = models.CharField(max_length= 32,null=True)
@@ -81,7 +81,7 @@ class Experiment(models.Model):
     #image_name1,image_name2,....all images contained in the exp
 
     #暂时不考虑多对多的问题
-    #exp_images = models.ManyToManyField(VMImage)#???
+    exp_images = models.ManyToManyField(VMImage)#???
 
     exp_image_count = models.IntegerField(null=True)
 

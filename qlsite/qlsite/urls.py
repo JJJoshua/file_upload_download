@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^show_person/$', show_person, name='show_person'),
     url(r'^list_image/$', list_image, name='list_image'),
     url(r'^list_experiment/$', list_experiment, name='list_experiment'),
+    url(r'^list_openstack_images/$', list_openstack_images, name='list_openstack_images'),
 
     url(r'^search/$', search, name='search'),
 
@@ -42,6 +43,10 @@ urlpatterns = [
     url(r'^share_experiment/$', share_experiment, name='share_experiment'),
 
     url(r'^delete_experiment/$', delete_experiment, name='delete_experiment'),
+    url(r'^delete_openstack_image/$', delete_openstack_image, name='delete_openstack_image'),
 
-    url(r'^list_openstack_images/$', list_openstack_images, name='list_openstack_images'),
+    url(r'^upload_test/$', upload_test, name='upload_test'),
+    url(r'^upload_openstack_image/$', upload_openstack_image, name='upload_openstack_image'),
+
+
 ]

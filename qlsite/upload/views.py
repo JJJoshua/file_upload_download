@@ -29,14 +29,20 @@ def valid_name(name):
 
 #上传镜像到服务器本地
 def upload_image_file(image_file):
-    pass
+    save_path = "/home/qinli/tmp"  # 文件存储的绝对路径
+    destination = open(os.path.join(save_path, image_file.name), 'wb+')  # 打开特定的文件进行二进制的写操作
+    for chunk in image_file.chunks():  # 分块写入文件
+        destination.write(chunk)
+    destination.close()
+    file_path = save_path + '/' + image_file.name
+    return file_path
 
 
 
-def upload_image_to_openstack(request):
+def upload_openstack_image(request):
 
     #当前用户信息
-    user_id = 1
+    user_id = 2
 
     from forms import upload_form
     if request.method == "POST":  # 请求方法为POST时，进行处理
@@ -45,28 +51,35 @@ def upload_image_to_openstack(request):
         image_name = rf.data['file_name']
 
         #验证名字是否可用
-        if ~valid_name(image_name):
+        if not valid_name(image_name):
             return HttpResponse('the name is invalid!')
 
         #上传镜像到服务器本地
         image_file = request.FILES.get("myfile", None)  # 获取上传的文件，如果没有文件，则默认为None
         if not image_file:
             return HttpResponse("no files for upload!")
-        image_data = upload_image_file(image_file)
+        file_path = upload_image_file(image_file)
 
 
         #将镜像upload到OpenStack
         from api_test.image_resource_operation import upload_image
         from api_test.createconn import create_connection
+
+        with open(file_path) as imgfile:
+            image_data = imgfile.read()
+
         conn = create_connection(auth_url, region_name, project_name, auth_username, auth_password)
-        upload_image(conn, image_name, image_data)
+        ret_image = upload_image(conn, image_name, image_data) #上传后会返回一个image对象
 
         #将文件信息写入数据库
         from repo_manage.models import VMImage
         new_image = VMImage()
+        #new_image.image_id = conn.image.get_image(ret_image)
         new_image.name = image_name
         new_image.owner_id = user_id
         new_image.is_shared = 'False'
+        new_image.own_project = 'True'
+        new_image.size = 0
         #其余Image信息补充
 
         new_image.save()

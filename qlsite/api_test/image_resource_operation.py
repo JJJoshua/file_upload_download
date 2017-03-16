@@ -215,7 +215,9 @@ def list_images(conn):
     list = extract_image(images)
     print "output data after extract!"
     for i in list:
-        print i
+        if i['name'] == 'qinli_cirros_test':
+            print i['name']
+            print i['id']
     return list
 
 
@@ -230,9 +232,9 @@ def upload_image(conn,image_name, image_data):
     image_attrs = {
         'name': image_name,
         'data': data,
-        'disk_format': 'raw',
+        'disk_format': 'qcow2',
         'container_format': 'bare',
-        'visibility': 'public',
+        'visibility': 'private',
     }
     conn.image.upload_image(**image_attrs)
     return 0
