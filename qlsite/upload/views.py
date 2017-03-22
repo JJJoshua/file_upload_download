@@ -69,12 +69,15 @@ def upload_openstack_image(request):
             image_data = imgfile.read()
 
         conn = create_connection(auth_url, region_name, project_name, auth_username, auth_password)
-        ret_image = upload_image(conn, image_name, image_data) #上传后会返回一个image对象
+        ret_image = upload_image(conn, image_name, image_data)
 
         #将文件信息写入数据库
         from repo_manage.models import VMImage
         new_image = VMImage()
         #new_image.image_id = conn.image.get_image(ret_image)
+
+        # new_image.image_id = ret_image.id
+        new_image.image_id = ret_image.id
         new_image.name = image_name
         new_image.owner_id = user_id
         new_image.is_shared = 'False'

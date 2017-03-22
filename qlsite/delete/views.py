@@ -36,7 +36,7 @@ def delete_openstack_image(request):
     user_id = 2
 
     #当前选择的镜像，name为qinli_cirros_test
-    image_name = 'qinli_cirros_test'
+    image_name = 'qinlitest'
 
     img = VMImage.objects.get(name=image_name)
 

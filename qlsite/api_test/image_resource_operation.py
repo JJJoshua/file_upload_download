@@ -236,8 +236,8 @@ def upload_image(conn,image_name, image_data):
         'container_format': 'bare',
         'visibility': 'private',
     }
-    conn.image.upload_image(**image_attrs)
-    return 0
+    ret_image = conn.image.upload_image(**image_attrs)
+    return ret_image
 
 
 def delete_image(conn,image_ID):

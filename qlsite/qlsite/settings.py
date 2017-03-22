@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'share',
     'delete',
     'api_test',
+    'update',
 ]
 
 MIDDLEWARE_CLASSES = [

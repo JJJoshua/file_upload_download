@@ -22,6 +22,7 @@ from search.views import *
 from share.views import *
 from delete.views import *
 from api_test.views import *
+from update.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -47,6 +48,8 @@ urlpatterns = [
 
     url(r'^upload_test/$', upload_test, name='upload_test'),
     url(r'^upload_openstack_image/$', upload_openstack_image, name='upload_openstack_image'),
+
+    url(r'^update_experiment/$', update_experiment, name='upload_openstack_image'),
 
 
 ]
