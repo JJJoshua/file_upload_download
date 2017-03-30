@@ -41,7 +41,7 @@ def delete_openstack_image(request):
     img = VMImage.objects.get(name=image_name)
 
     if img.owner_id == user_id:
-        image_id = img.image_id
+        image_id = img.image_id #image_id存的是openstack中的image_id
         conn = createconn.create_connection(auth_url, region_name, project_name, auth_username, auth_password)
 
         #删除OpenStack中的镜像

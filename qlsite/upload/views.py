@@ -18,7 +18,6 @@ system_admin_email = 'machenyi2011@163.com'
 
 #上传文件
 
-
 #验证输入的镜像名是否可用
 def valid_name(name):
     from repo_manage.models import VMImage
